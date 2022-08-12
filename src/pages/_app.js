@@ -4,7 +4,9 @@ import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
   return (
     <AuthContext.AuthProvider>
-      <Component {...pageProps} />
+      <div style={{ fontFamily: "Jaldi" }}>
+        <Component {...pageProps} />
+      </div>
     </AuthContext.AuthProvider>
   );
 }
