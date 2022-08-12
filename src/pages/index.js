@@ -22,6 +22,8 @@ export default function Home() {
         {user ? user : <Button onClick={() => LogOut()}>Log Out</Button>}
         <Button onClick={() => router.push("SignIn")}>SignIn</Button>
         <Button onClick={() => router.push("SignUp")}>SignUp</Button>
+        <Button onClick={() => router.push("Home")}>Home</Button>
+
 
         <p className={styles.description}>
           Get started by editing{" "}

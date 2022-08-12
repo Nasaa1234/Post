@@ -1,0 +1,46 @@
+export const MOCK_DATA_LIST = [
+  {
+    number: "4",
+    userName: "name",
+    userId: "0356",
+    point: "162",
+    titleImg: "gold",
+  },
+  {
+    number: "5",
+    userName: "name",
+    userId: "0357",
+    point: "161",
+    titleImg: "silver",
+    active: true,
+  },
+  {
+    number: "6",
+    userName: "name",
+    userId: "0358",
+    point: "160",
+    titleImg: "bronze",
+  },
+  {
+    number: "7",
+    userName: "name",
+    userId: "0359",
+    point: "159",
+    titleImg: "bronze",
+  },
+  {
+    number: "8",
+    userName: "name",
+    userId: "0328",
+    point: "160",
+    titleImg: "silver",
+  },
+  {
+    number: "13",
+    userName: "you",
+    userId: "0368",
+    point: "140",
+    titleImg: "gold",
+    you: true,
+  },
+];
