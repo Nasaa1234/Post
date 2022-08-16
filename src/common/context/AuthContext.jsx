@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState();
   const SignIn = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => router.push("/"), setUser(email))
+      .then(() => router.push("/Home"), setUser(email))
       .catch((req) => setError(req.toString().split("/")[1].slice(0, -2)));
   };
   const SignUp = (email, password) => {
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setUser(userCredential.user);
-        router.push("/");
+        router.push("/Home");
       })
       .catch((req) => setError(req.toString().split("/")[1].slice(0, -2)));
   };
