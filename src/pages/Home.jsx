@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Post from "../components/common/Post";
 import { useAuthContext } from "../common/context/AuthContext";
 import { router } from "next/router";
+import Header from "../components/common/Header";
+import LeftBar from "../components/common/LeftBar";
 
 const Home = () => {
   const { user } = useAuthContext();
@@ -49,75 +51,84 @@ const Home = () => {
 
   return (
     <div style={style.container}>
-      <Button variant="contained" onClick={() => router.push("/SignIn")}>
-        Login
-      </Button>
-      <div>
-        <Button
-          onClick={() =>
-            user ? setOpen(!open) : alert("pls login and signUp")
-          }
-          variant="contained"
-        >
-          Add Post
-        </Button>
-        <Modal
-          open={open}
-          onClose={() => setOpen(!open)}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style.modal}>
-            <Box>
-              Picture:
-              <input
-                type="file"
-                onChange={(e) =>
-                  // setValue({ ...value, pictureVal: e.target.files[0] })
-                  // reader(e)
-                  console.log(e)
-                }
-              />
-            </Box>
-            <Box>
-              title:
-              <TextareaAutosize
-                onChange={(e) =>
-                  setValue({ ...value, titleVal: e.target.value })
-                }
-              />
-            </Box>
-            <Box>
-              method:
-              <TextareaAutosize
-                onChange={(e) =>
-                  setValue({ ...value, methodVal: e.target.value })
-                }
-              />
-            </Box>
-            <Button variant="contained" onClick={addPost}>
+      <Header />
+      <Box sx={style.body}> 
+        <LeftBar />
+        <Box>
+          <Button variant="contained" onClick={() => router.push("/SignIn")}>
+            Login
+          </Button>
+          <div>
+            <Button
+              onClick={() =>
+                user ? setOpen(!open) : alert("pls login and signUp")
+              }
+              variant="contained"
+            >
               Add Post
             </Button>
-          </Box>
-        </Modal>
-      </div>
-      {mock.map((el, ind) => {
-        return (
-          <Post
-            key={ind}
-            userName={el.userName}
-            date={el.date}
-            picture={el.picture}
-            title={el.title}
-            method={el.method}
-            loading={el.loading}
-            ind={ind}
-            open={open}
-            setMock={setMock}
-            mock={mock}
-          />
-        );
-      })}
+            <Modal
+              open={open}
+              onClose={() => setOpen(!open)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style.modal}>
+                <Box>
+                  Picture:
+                  <input
+                    type="file"
+                    onChange={(e) =>
+                      // setValue({ ...value, pictureVal: e.target.files[0] })
+                      // reader(e)
+                      console.log(e)
+                    }
+                  />
+                </Box>
+                <Box>
+                  title:
+                  <TextareaAutosize
+                    onChange={(e) =>
+                      setValue({ ...value, titleVal: e.target.value })
+                    }
+                  />
+                </Box>
+                <Box>
+                  method:
+                  <TextareaAutosize
+                    onChange={(e) =>
+                      setValue({ ...value, methodVal: e.target.value })
+                    }
+                  />
+                </Box>
+                <Button variant="contained" onClick={addPost}>
+                  Add Post
+                </Button>
+              </Box>
+            </Modal>
+          </div>
+          {mock.map((el, ind) => {
+            return (
+              <Post
+                key={ind}
+                userName={el.userName}
+                date={el.date}
+                picture={el.picture}
+                title={el.title}
+                method={el.method}
+                loading={el.loading}
+                ind={ind}
+                open={open}
+                setMock={setMock}
+                mock={mock}
+              />
+            );
+          })}
+        </Box>
+        <Box>
+          <LeftBar />
+        </Box>
+      </Box>
     </div>
   );
 };
@@ -139,6 +150,12 @@ const style = {
     boxShadow: 24,
     p: 4,
   },
+  body: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100vw"
+  }
 };
 
 export default Home;

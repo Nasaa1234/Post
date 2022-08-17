@@ -233,8 +233,9 @@ const Post = (props) => {
           label="Comment"
           value={comment.value}
           onChange={(e) => setComment({ ...comment, value: e.target.value })}
+          onKeyDown={(e) => e.code === "Enter" && AddComment()}
         />
-        <SendIcon onClick={AddComment} sx={{cursor: "pointer"}}/>
+        <SendIcon onClick={AddComment} sx={{ cursor: "pointer" }} />
       </Box>
     </Card>
   );
