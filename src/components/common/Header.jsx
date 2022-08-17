@@ -12,11 +12,14 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import RedditIcon from "@mui/icons-material/Reddit";
+import { router } from "next/router";
+import { useAuthContext } from "../../common/context/AuthContext";
 
 const pages = ["Home", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Header = () => {
+  const { user } = useAuthContext();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -127,9 +130,20 @@ const Header = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
+              {user ? (
+                <Avatar
+                  alt={user.toUpperCase()}
+                  src="/static/images/avatar/2.jpg"
+                  onClick={handleOpenUserMenu}
+                />
+              ) : (
+                <Button
+                  variant="contained"
+                  onClick={() => router.push("/SignIn")}
+                >
+                  Login
+                </Button>
+              )}
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}

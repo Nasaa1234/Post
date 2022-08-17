@@ -73,7 +73,7 @@ const Post = (props) => {
     setComment({ ...comment, value: "" });
   };
   return (
-    <Card sx={{ width: "30vw" }}>
+    <Card sx={{ width: "30vw" , mt: "10%"}}>
       <Popover
         id={open ? "simple-popover" : undefined}
         open={Boolean(anchor.el)}

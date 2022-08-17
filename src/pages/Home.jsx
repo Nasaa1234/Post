@@ -2,7 +2,6 @@ import { Box, Button, Modal, TextareaAutosize } from "@mui/material";
 import React, { useState } from "react";
 import Post from "../components/common/Post";
 import { useAuthContext } from "../common/context/AuthContext";
-import { router } from "next/router";
 import Header from "../components/common/Header";
 import LeftBar from "../components/common/LeftBar";
 
@@ -52,12 +51,9 @@ const Home = () => {
   return (
     <div style={style.container}>
       <Header />
-      <Box sx={style.body}> 
+      <Box sx={style.body}>
         <LeftBar />
         <Box>
-          <Button variant="contained" onClick={() => router.push("/SignIn")}>
-            Login
-          </Button>
           <div>
             <Button
               onClick={() =>
@@ -76,14 +72,7 @@ const Home = () => {
               <Box sx={style.modal}>
                 <Box>
                   Picture:
-                  <input
-                    type="file"
-                    onChange={(e) =>
-                      // setValue({ ...value, pictureVal: e.target.files[0] })
-                      // reader(e)
-                      console.log(e)
-                    }
-                  />
+                  <input type="file" onChange={(e) => console.log(e)} />
                 </Box>
                 <Box>
                   title:
@@ -154,8 +143,8 @@ const style = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100vw"
-  }
+    width: "100vw",
+  },
 };
 
 export default Home;
