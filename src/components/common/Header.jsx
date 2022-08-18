@@ -137,12 +137,12 @@ const Header = () => {
                   onClick={handleOpenUserMenu}
                 />
               ) : (
-                <Button
-                  variant="contained"
+                <Box
                   onClick={() => router.push("/SignIn")}
+                  sx={{ cursor: "pointer" }}
                 >
-                  Login
-                </Button>
+                  LOGIN
+                </Box>
               )}
             </Tooltip>
             <Menu

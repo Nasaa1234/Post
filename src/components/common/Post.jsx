@@ -68,12 +68,13 @@ const Post = (props) => {
       : setAnchor({ ...anchor, el: event.currentTarget });
   };
   const AddComment = () => {
-    mock[ind].comment.push(comment.value);
+    comment.value !== "" && mock[ind].comment.push(comment.value);
     setMock([...mock]);
     setComment({ ...comment, value: "" });
   };
+
   return (
-    <Card sx={{ width: "30vw" , mt: "10%"}}>
+    <Card sx={{ width: "30vw", mt: "10%" }}>
       <Popover
         id={open ? "simple-popover" : undefined}
         open={Boolean(anchor.el)}

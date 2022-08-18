@@ -43,9 +43,11 @@ const Home = () => {
           "https://image.shutterstock.com/image-vector/zero-waste-concept-young-male-600w-1535297816.jpg",
         title: value.titleVal,
         method: value.methodVal,
+        loading: true,
         comment: [],
       },
     ]);
+    // setInterval(console.log(mock), 3000);
   };
 
   return (
