@@ -4,7 +4,6 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { useAuthContext } from "../../common/context/AuthContext";
-// import randomColor from "randomcolor";
 
 const CommentBox = ({ el }) => {
   const { user } = useAuthContext();

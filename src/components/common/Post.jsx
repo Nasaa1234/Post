@@ -21,6 +21,7 @@ import {
   Badge,
   Box,
   TextField,
+  Stack,
 } from "@mui/material";
 import { FacebookButton, FacebookCount } from "react-social";
 import Comment from "./Comment";
@@ -155,7 +156,6 @@ const Post = (props) => {
       ) : (
         <CardMedia
           component="img"
-          height="194"
           image={picture}
           alt="Paella dish"
         />
@@ -180,34 +180,69 @@ const Post = (props) => {
         disableSpacing
         sx={{ display: "flex", justifyContent: "space-between" }}
       >
-        <Box>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon
-              style={{ color: favorite && "#eb3b3b" }}
-              onClick={() => setFavorite(!favorite)}
+        {loading ? (
+          <Stack flexDirection="row" ml={1} gap={1}>
+            <Skeleton
+              height={35}
+              width={35}
+              animation="wave"
+              variant="circular"
             />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon onClick={handleClick} />
-          </IconButton>
-        </Box>
-        <Box>
-          <Badge
-            badgeContent={mock[ind].comment.length}
-            color="primary"
-            onClick={() => setComment(!comment)}
-          >
-            <MailOutline color="action" />
-          </Badge>
-          <ExpandMore
-            expand={expanded}
-            onClick={() => setExpanded(!expanded)}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </Box>
+            <Skeleton
+              height={35}
+              width={35}
+              animation="wave"
+              variant="circular"
+            />
+          </Stack>
+        ) : (
+          <Box>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon
+                style={{ color: favorite && "#eb3b3b" }}
+                onClick={() => setFavorite(!favorite)}
+              />
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon onClick={handleClick} />
+            </IconButton>
+          </Box>
+        )}
+
+        {loading ? (
+          <Stack flexDirection="row" mr={1} gap={1}>
+            <Skeleton
+              height={35}
+              width={35}
+              animation="wave"
+              variant="circular"
+            />
+            <Skeleton
+              height={35}
+              width={35}
+              animation="wave"
+              variant="circular"
+            />
+          </Stack>
+        ) : (
+          <Box>
+            <Badge
+              badgeContent={mock[ind].comment.length}
+              color="primary"
+              onClick={() => setComment(!comment)}
+            >
+              <MailOutline color="action" />
+            </Badge>
+            <ExpandMore
+              expand={expanded}
+              onClick={() => setExpanded(!expanded)}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </Box>
+        )}
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
@@ -226,17 +261,55 @@ const Post = (props) => {
           )}
         </CardContent>
       </Collapse>
-      {comment && <Comment mock={mock} index={ind} />}
+      {loading ? (
+        <Stack flexDirection={"row"} m={2}>
+          <Skeleton
+            animation="wave"
+            variant="circular"
+            width={40}
+            height={40}
+            sx={{ mr: 2 }}
+          />
+          <Skeleton
+            height={35}
+            width={400}
+            animation="wave"
+            sx={{ borderRadius: "10px" }}
+            variant="rectangular"
+          />
+        </Stack>
+      ) : (
+        comment && <Comment mock={mock} index={ind} />
+      )}
       <Box sx={style.comment}>
-        <TextField
-          size="small"
-          id="standard-basic"
-          label="Comment"
-          value={comment.value}
-          onChange={(e) => setComment({ ...comment, value: e.target.value })}
-          onKeyDown={(e) => e.code === "Enter" && AddComment()}
-        />
-        <SendIcon onClick={AddComment} sx={{ cursor: "pointer" }} />
+        {loading ? (
+          <Skeleton
+            height={35}
+            width={200}
+            animation="wave"
+            sx={{ borderRadius: "5px" }}
+            variant="rectangular"
+          />
+        ) : (
+          <TextField
+            size="small"
+            id="standard-basic"
+            label="Comment"
+            value={comment.value}
+            onChange={(e) => setComment({ ...comment, value: e.target.value })}
+            onKeyDown={(e) => e.code === "Enter" && AddComment()}
+          />
+        )}
+        {loading ? (
+          <Skeleton
+            height={35}
+            width={35}
+            animation="wave"
+            variant="circular"
+          />
+        ) : (
+          <SendIcon onClick={AddComment} sx={{ cursor: "pointer" }} />
+        )}
       </Box>
     </Card>
   );

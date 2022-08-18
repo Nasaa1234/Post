@@ -1,9 +1,10 @@
-import { Box, Button, Modal, TextareaAutosize } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Button, Modal } from "@mui/material";
+import React, { useState, useEffect } from "react";
 import Post from "../components/common/Post";
 import { useAuthContext } from "../common/context/AuthContext";
 import Header from "../components/common/Header";
 import LeftBar from "../components/common/LeftBar";
+import AddPost from "../components/common/AddPost";
 
 const Home = () => {
   const { user } = useAuthContext();
@@ -20,7 +21,7 @@ const Home = () => {
         "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like.",
       method:
         "Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10 minutes.Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving chicken and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.",
-      loading: false,
+      loading: true,
       comment: ["hello", "muu bn"],
     },
   ]);
@@ -39,16 +40,26 @@ const Home = () => {
         date: `${
           today.getMonth() + 1
         }-${today.getDate()}, ${today.getFullYear()}`,
-        picture:
-          "https://image.shutterstock.com/image-vector/zero-waste-concept-young-male-600w-1535297816.jpg",
+        picture: value.pictureVal,
         title: value.titleVal,
         method: value.methodVal,
         loading: true,
         comment: [],
       },
     ]);
-    // setInterval(console.log(mock), 3000);
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      let newMock = mock;
+      newMock.length !== 0 && (newMock[newMock.length - 1].loading = false);
+      setMock([...newMock]);
+    }, 2000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [mock]);
+  console.log(mock);
 
   return (
     <div style={style.container}>
@@ -71,31 +82,7 @@ const Home = () => {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <Box sx={style.modal}>
-                <Box>
-                  Picture:
-                  <input type="file" onChange={(e) => console.log(e)} />
-                </Box>
-                <Box>
-                  title:
-                  <TextareaAutosize
-                    onChange={(e) =>
-                      setValue({ ...value, titleVal: e.target.value })
-                    }
-                  />
-                </Box>
-                <Box>
-                  method:
-                  <TextareaAutosize
-                    onChange={(e) =>
-                      setValue({ ...value, methodVal: e.target.value })
-                    }
-                  />
-                </Box>
-                <Button variant="contained" onClick={addPost}>
-                  Add Post
-                </Button>
-              </Box>
+              <AddPost value={value} setValue={setValue} addPost={addPost} />
             </Modal>
           </div>
           {mock.map((el, ind) => {
@@ -130,16 +117,6 @@ const style = {
     flexDirection: "column",
     alignItems: "center",
     gap: "20px",
-  },
-  modal: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    p: 4,
   },
   body: {
     display: "flex",
