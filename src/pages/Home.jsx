@@ -5,6 +5,7 @@ import { useAuthContext } from "../common/context/AuthContext";
 import Header from "../components/common/Header";
 import LeftBar from "../components/common/LeftBar";
 import AddPost from "../components/common/AddPost";
+import Swal from "sweetalert2";
 
 const Home = () => {
   const { user } = useAuthContext();
@@ -36,7 +37,7 @@ const Home = () => {
     setMock([
       ...mock,
       {
-        userName: user,
+        userName: user.user.email,
         date: `${
           today.getMonth() + 1
         }-${today.getDate()}, ${today.getFullYear()}`,
@@ -59,7 +60,6 @@ const Home = () => {
       clearInterval(interval);
     };
   }, [mock]);
-  console.log(mock);
 
   return (
     <div style={style.container}>
@@ -70,7 +70,14 @@ const Home = () => {
           <div>
             <Button
               onClick={() =>
-                user ? setOpen(!open) : alert("pls login and signUp")
+                user
+                  ? setOpen(!open)
+                  : Swal.fire({
+                      icon: "error",
+                      title: "Sorry...",
+                      text: "Pls Login and SignUp",
+                      footer: '<a href="">Why do I have this issue?</a>',
+                    })
               }
               variant="contained"
             >
@@ -89,12 +96,6 @@ const Home = () => {
             return (
               <Post
                 key={ind}
-                userName={el.userName}
-                date={el.date}
-                picture={el.picture}
-                title={el.title}
-                method={el.method}
-                loading={el.loading}
                 ind={ind}
                 open={open}
                 setMock={setMock}

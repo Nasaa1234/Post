@@ -1,9 +1,11 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { MailOutline } from "@mui/icons-material";
+import SendIcon from "@mui/icons-material/Send";
 import {
   Button,
   Popover,
@@ -25,9 +27,6 @@ import {
 } from "@mui/material";
 import { FacebookButton, FacebookCount } from "react-social";
 import Comment from "./Comment";
-import { MailOutline } from "@mui/icons-material";
-import { useState } from "react";
-import SendIcon from "@mui/icons-material/Send";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -41,18 +40,7 @@ const ExpandMore = styled((props) => {
 }));
 
 const Post = (props) => {
-  const {
-    userName,
-    date,
-    picture,
-    method,
-    title,
-    loading,
-    open,
-    ind,
-    setMock,
-    mock,
-  } = props;
+  const { open, ind, setMock, mock } = props;
   const [expanded, setExpanded] = useState(false);
   const [favorite, setFavorite] = useState();
   const [anchor, setAnchor] = useState({
@@ -112,7 +100,7 @@ const Post = (props) => {
       </Popover>
       <CardHeader
         avatar={
-          loading ? (
+          mock[ind].loading ? (
             <Skeleton
               animation="wave"
               variant="circular"
@@ -121,12 +109,12 @@ const Post = (props) => {
             />
           ) : (
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              {userName?.slice(0, 1)}
+              {mock[ind].userName?.slice(0, 1)}
             </Avatar>
           )
         }
         action={
-          loading ? null : (
+          mock[ind].loading ? null : (
             <IconButton
               aria-label="settings"
               onClick={(e) => handleClick(e, true)}
@@ -136,7 +124,7 @@ const Post = (props) => {
           )
         }
         title={
-          loading ? (
+          mock[ind].loading ? (
             <Skeleton
               animation="wave"
               height={10}
@@ -144,24 +132,28 @@ const Post = (props) => {
               style={{ marginBottom: 6 }}
             />
           ) : (
-            userName
+            mock[ind].userName
           )
         }
         subheader={
-          loading ? <Skeleton animation="wave" height={10} width="40%" /> : date
+          mock[ind].loading ? (
+            <Skeleton animation="wave" height={10} width="40%" />
+          ) : (
+            mock[ind].date
+          )
         }
       />
-      {loading ? (
+      {mock[ind].loading ? (
         <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
       ) : (
         <CardMedia
           component="img"
-          image={picture}
+          image={mock[ind].picture}
           alt="Paella dish"
         />
       )}
       <CardContent>
-        {loading ? (
+        {mock[ind].loading ? (
           <React.Fragment>
             <Skeleton
               animation="wave"
@@ -172,7 +164,7 @@ const Post = (props) => {
           </React.Fragment>
         ) : (
           <Typography variant="body2" color="text.secondary">
-            {title}
+            {mock[ind].title}
           </Typography>
         )}
       </CardContent>
@@ -180,7 +172,7 @@ const Post = (props) => {
         disableSpacing
         sx={{ display: "flex", justifyContent: "space-between" }}
       >
-        {loading ? (
+        {mock[ind].loading ? (
           <Stack flexDirection="row" ml={1} gap={1}>
             <Skeleton
               height={35}
@@ -209,7 +201,7 @@ const Post = (props) => {
           </Box>
         )}
 
-        {loading ? (
+        {mock[ind].loading ? (
           <Stack flexDirection="row" mr={1} gap={1}>
             <Skeleton
               height={35}
@@ -247,7 +239,7 @@ const Post = (props) => {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Method:</Typography>
-          {loading ? (
+          {mock[ind].loading ? (
             <React.Fragment>
               <Skeleton
                 animation="wave"
@@ -257,11 +249,11 @@ const Post = (props) => {
               <Skeleton animation="wave" height={10} width="80%" />
             </React.Fragment>
           ) : (
-            method
+            mock[ind].method
           )}
         </CardContent>
       </Collapse>
-      {loading ? (
+      {mock[ind].loading ? (
         <Stack flexDirection={"row"} m={2}>
           <Skeleton
             animation="wave"
@@ -282,7 +274,7 @@ const Post = (props) => {
         comment && <Comment mock={mock} index={ind} />
       )}
       <Box sx={style.comment}>
-        {loading ? (
+        {mock[ind].loading ? (
           <Skeleton
             height={35}
             width={200}
@@ -300,7 +292,7 @@ const Post = (props) => {
             onKeyDown={(e) => e.code === "Enter" && AddComment()}
           />
         )}
-        {loading ? (
+        {mock[ind].loading ? (
           <Skeleton
             height={35}
             width={35}

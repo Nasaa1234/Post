@@ -15,7 +15,7 @@ import RedditIcon from "@mui/icons-material/Reddit";
 import { router } from "next/router";
 import { useAuthContext } from "../../common/context/AuthContext";
 
-const pages = ["Home", "Pricing", "Blog"];
+const pages = ["Home", "Quiz", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Header = () => {
@@ -132,7 +132,7 @@ const Header = () => {
             <Tooltip title="Open settings">
               {user ? (
                 <Avatar
-                  alt={user.toUpperCase()}
+                  alt={user.user.email.toUpperCase()}
                   src="/static/images/avatar/2.jpg"
                   onClick={handleOpenUserMenu}
                 />

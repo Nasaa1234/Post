@@ -18,7 +18,10 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState();
   const SignIn = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => router.push("/Home"), setUser(email))
+      .then((userCredential) => {
+        router.push("/Home");
+        setUser(userCredential);
+      })
       .catch((req) => setError(req.toString().split("/")[1].slice(0, -2)));
   };
   const SignUp = (email, password) => {
